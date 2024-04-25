@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="columns is-centered">
+    <div class="column is-half" id="legislators_chart">
+        <table class="charts-css bar show-data data-center show-heading show-labels show-data-axis show-5-secondary-axes data-spacing-5 multiple stacked" style="--labels-size: 300px">
+            <caption class="subtitle"> Supported vs. Opposed Bills </caption> 
+            <thead>
+                <tr>
+                    <th scope="col"> Legislator </th> 
+                    <th scope="col"> Supported </th> 
+                    <th scope="col"> Opposed </th>
+                </tr>
+            </thead> 
+            <tbody>
+                {% for legislator in data.legislators %}
+                <tr>
+                    <th scope="row">{{ legislator.name }}</th> 
+                    <td style="--size: calc({{ legislator.total_yeas }} / {{ data.total_bills }}); --color:#64d250bf">
+                        <span class="data">
+                            {{ legislator.total_yeas }}
+                        </span>
+                    </td> 
+                    <td style="--size: calc({{ legislator.total_nays }} / {{ data.total_bills }}); --color:#f03232bf">
+                        <span class="data">
+                            {{ legislator.total_nays }}
+                        </span>
+                    </td> 
+                </tr>
+                {% empty %}
+                <tr colspan="3">No data.</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="column" id="bills_chart" style="--total-cells: {{ data.total_bills }}; --display-cells: 2;">
+        <table class="charts-css column show-data data-center show-heading show-labels show-data-axis show-10-secondary-axes data-spacing-5 multiple stacked labels-align-block-start" style="--labels-size: 4rem">
+            <caption class="subtitle">Legislative Voting on Bills</caption> 
+            <thead>
+                <tr>
+                    <th scope="col">Bill</th> 
+                    <th scope="col">Supporters</th> 
+                    <th scope="col">Opposers</th> 
+                </tr>
+            </thead> 
+            <tbody>
+                {% for bill in data.bills %}
+                <tr>
+                    <th scope="row">
+                        <span class="data">{{ bill.title }}</span>
+                    </th>
+                    <td style="--size: calc({{ bill.total_yeas }} / {{ bill.total_votes }}); --color:#64d250bf">
+                        <span class="data">
+                            {{ bill.total_yeas }} YEA vote{{ bill.total_yeas|pluralize }}
+                        </span>
+                        <span class="tooltip">
+                            {{ bill.sponsor__name }}<br>Sponsor of the bill
+                        </span>
+                    </td> 
+                    <td style="--size: calc({{ bill.total_nays }} / {{ bill.total_votes }}); --color:#f03232bf">
+                        <span class="data">
+                            {{ bill.total_nays }} NAY vote{{ bill.total_nays|pluralize }}
+                        </span>
+                        <span class="tooltip">
+                            {{ bill.sponsor__name }}<br>Sponsor of the bill
+                        </span>
+                    </td> 
+                </tr>
+                {% empty %}
+                <tr colspan="3">No data.</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="columns is-centered">
+    <div class="table-container column scrollable-table">
+        <table class="table is-hoverable">
+            <caption class="subtitle">Supported vs. Opposed Bills</caption> 
+            <thead>
+                <tr>
+                    <th scope="col"> Legislator</th> 
+                    <th scope="col" class="has-text-centered"> Supported Bills</th> 
+                    <th scope="col" class="has-text-centered"> Opposed Bills</th>
+                </tr>
+            </thead> 
+            <tbody>
+                {% for legislator in data.legislators %}
+                <tr>
+                    <th scope="row">{{ legislator.name }}</th>
+                    <td class="has-text-centered">{{ legislator.total_yeas }}</td>
+                    <td class="has-text-centered">{{ legislator.total_nays }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3">No data.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-container column scrollable-table">
+        <table class="table is-hoverable">
+            <caption class="subtitle">Legislative Voting on Bills</caption> 
+            <thead>
+                <tr>
+                    <th scope="col">Bill</th> 
+                    <th scope="col">Primary Sponsor</th> 
+                    <th scope="col">Supporters</th> 
+                    <th scope="col">Opposers</th> 
+                </tr>
+            </thead> 
+            <tbody>
+                {% for bill in data.bills %}
+                <tr>
+                    <th scope="row">{{ bill.title }}</th> 
+                    <td>{{ bill.sponsor__name }}</td>
+                    <td>{{ bill.total_yeas }}</td>
+                    <td>{{ bill.total_nays }}</td> 
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No data</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer class="card-footer">
+    <p class="card-footer-item">
+        <span>
+            <strong>{{data.legislators|length}} Legislators</strong> <br>
+            in total.
+        </span>
+    </p>
+    <p class="card-footer-item">
+        <span>
+            <strong>{{data.bills|length}} Bills</strong> <br>
+            voted.
+        </span>
+    </p>
+    <p class="card-footer-item">
+        <span>
+            <strong>{{data.votes_cast}} Votes</strong> <br>
+            cast.
+        </span>
+    </p>
+</footer>
+{% endblock %}

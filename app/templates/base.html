@@ -6,32 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quorum Coding Challenge</title>
     <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
-    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/charts.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body class="container">
   <section class="section">
     <div class="container">
-      <h1 class="title">
-        Quorum Coding Challenge
-      </h1>
-      <p class="subtitle">
-        Working with Legislative Data.
-      </p>
+      <h1 class="title">Quorum Coding Challenge</h1>
+      <p class="subtitle">Working with Legislative Data.</p>
     </div>
   </section>
-  <div class="content is-normal">
-    {% block main %}
-    {% endblock main %}
-  </div>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>Developed</strong> by 
-        <a href="mailto:pereirasallan@gmail.com?subject=Quorum Coding Challenge" target="_blank">
-            Allan Pereira Silva
-        </a>
-      </p>
+  <section class="section pb-0">
+    <div class="tabs is-centered is-boxed">
+      <ul class="has-text-weight-semibold">
+        <li {% if tab == "info" %}class="is-active"{% endif %}>
+          <a href="?tab=info"><span>Info</span></a>
+        </li>
+        <li {% if tab == "charts" %}class="is-active"{% endif %}>
+          <a href="?tab=charts"><span>Charts</span></a>
+        </li>
+        <li {% if tab == "tables" %}class="is-active"{% endif %}>
+          <a href="?tab=tables"><span>Tables</span></a>
+        </li>
+      </ul>
     </div>
-  </footer>
+  </section>
+  <section class="section pt-0">
+    <div class="container">
+        <div class="card">
+            <div class="card-content pt-6">
+              {% block main %}
+              <div class="hero is-medium"> 
+                <div class="hero-body">
+                  <div class="notification is-success is-light">
+                    Use the above tabs to navigate through the results of this project.
+                    <br>Data is already loaded.
+                  </div>
+                </div>
+              </div>
+              {% endblock main %}
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Developed</strong> by 
+          <a href="mailto:pereirasallan@gmail.com?subject=Quorum Coding Challenge" target="_blank">
+              Allan Pereira Silva
+          </a>
+        </p>
+      </div>
+    </footer>
+  </section>
   </body>
 </html>
