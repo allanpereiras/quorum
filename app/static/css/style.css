@@ -1,0 +1,26 @@
+/* Custom CSS */ 
+
+/* scrollable table */
+.scrollable-table {
+    overflow-y: auto; /* Vertical scrollbar */
+    max-height: 50vh;
+}
+
+/* Legislators Chart */
+#legislators_chart {
+    --total-cells: 10;
+    --display-cells: 10;
+    --cell-size: 50px;
+    max-height: calc( var( --cell-size ) * var( --display-cells ) );
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* Bills Chart */
+#bills_chart {
+    --cell-size: 500px;
+    max-width: calc( var( --cell-size ) * var( --display-cells ) );
+    min-height: 500px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
